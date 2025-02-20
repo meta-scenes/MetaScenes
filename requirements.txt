@@ -1,0 +1,8 @@
+antlr4-python3-runtime==4.9.3
+numpy==1.26.2
+omegaconf==2.3.0
+pillow==11.1.0
+pyglet==1.5.28
+PyYAML==6.0.2
+scipy==1.15.2
+trimesh==4.0.5
