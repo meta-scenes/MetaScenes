@@ -36,8 +36,6 @@
     <img src="assets/teaser4-1.png" width=90%>
 </p>
 
-PhyRecon harnesses both differentiable rendering and differentiable physics simulation to achieve physically plausible scene reconstruction from multi-view images.
-
 ## News
 
 - [2025/1/14] Code is released. For more information, please visit our [project page](https://phyrecon.github.io/)!
