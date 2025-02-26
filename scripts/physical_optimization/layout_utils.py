@@ -1,7 +1,6 @@
 
 import bpy
 import bmesh
-from mathutils import Vector
 import json
 import os
 
@@ -11,90 +10,121 @@ WALL_HEIGHT = 3
 WALL_TEXTURE_PATH = '/mnt/fillipo/huangyue/recon_sim/layout_textures/wall/carpet_Paper002_2K_Color_crop0.jpg'
 FLOOR_TEXTURE_PATH = '/mnt/fillipo/huangyue/recon_sim/layout_textures/floor/wood_Wood026_1K-PNG_crop0.jpg'
 
+
 def create_mesh(verts, mesh_name):
-    # 创建一个新的Mesh对象
+    """
+    Creates a new mesh object from a list of vertices and applies thickness.
+
+    Parameters:
+    - verts (list of tuple): List of vertex coordinates (x, y, z).
+    - mesh_name (str): Name of the new mesh object.
+
+    Returns:
+    - bpy.types.Object: The created mesh object.
+    """
+    # Create a new mesh and object
     mesh_data = bpy.data.meshes.new(mesh_name)
     mesh_obj = bpy.data.objects.new(mesh_name, mesh_data)
 
-    # 将新创建的对象添加到场景中
+    # Add the object to the scene
     bpy.context.collection.objects.link(mesh_obj)
 
-    # 创建一个BMesh对象并将顶点数据加入到BMesh中
+    # Create a BMesh object and add vertices
     bm = bmesh.new()
-
-    # 添加顶点
-    bm_verts = []
-    for vert in verts:
-        bm_verts.append(bm.verts.new(vert))
+    bm_verts = [bm.verts.new(vert) for vert in verts]
 
     bm.verts.ensure_lookup_table()
 
-    # 添加四边形
+    # Create a face using the vertices
     bm.faces.new(bm_verts)
 
-    # 更新BMesh并写入到Mesh数据中
+    # Update the BMesh and write to mesh data
     bm.to_mesh(mesh_data)
     bm.free()
 
-    # 更新Mesh以显示在视图中
+    # Update mesh to appear in the viewport
     mesh_obj.data.update()
 
+    # Apply thickness to the mesh
     add_thickness(mesh_obj, thickness=WALL_THICKNESS)
 
     mesh_obj.select_set(True)
 
+    return mesh_obj
+
 
 def add_thickness(obj, thickness):
-    # 进入对象模式并选中对象
+    """
+    Applies a solidify modifier to add thickness to an object.
+
+    Parameters:
+    - obj (bpy.types.Object): The object to modify.
+    - thickness (float): The thickness value.
+
+    Returns:
+    - None
+    """
+    # Ensure the object is selected and active
     bpy.context.view_layer.objects.active = obj
     obj.select_set(True)
 
-    # 确保处于对象模式
+    # Switch to object mode
     bpy.ops.object.mode_set(mode='OBJECT')
 
-    # 应用所有变换
+    # Apply all transformations
     bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
 
-    # 添加固化修改器
+    # Add a solidify modifier
     solidify_modifier = obj.modifiers.new(name="Solidify", type='SOLIDIFY')
     solidify_modifier.thickness = thickness
     solidify_modifier.offset = 0
 
-    # 应用修改器
+    # Apply the modifier
     bpy.ops.object.modifier_apply(modifier=solidify_modifier.name)
 
-    # 确保处于对象模式
+    # Ensure the object remains in object mode
     bpy.ops.object.mode_set(mode='OBJECT')
 
 
 
 def add_texture_to_cube(cube, texture_file):
-    # 创建新的材质
+    """
+    Assigns a texture to a cube using a material with a Principled BSDF shader.
+
+    Parameters:
+    - cube (bpy.types.Object): The cube object to apply the texture to.
+    - texture_file (str): Path to the texture file.
+
+    Returns:
+    - None
+    """
+    # Create a new material with nodes enabled
     material = bpy.data.materials.new(name="CubeMaterial")
     material.use_nodes = True
 
-    # 获取材质节点树
+    # Get the material node tree
     nodes = material.node_tree.nodes
 
-    # 删除默认的Diffuse节点
+    # Clear default nodes
     nodes.clear()
 
-    # 添加图像纹理节点
+    # Create an image texture node and load the image
     texture_node = nodes.new(type='ShaderNodeTexImage')
-    texture_node.image = bpy.data.images.load(
-        filepath=texture_file)
+    texture_node.image = bpy.data.images.load(filepath=texture_file)
 
-    # 添加Principled BSDF节点
+    # Create a Principled BSDF shader node
     bsdf_node = nodes.new(type='ShaderNodeBsdfPrincipled')
 
-    # 添加材质输出节点
+    # Create a material output node
     output_node = nodes.new(type='ShaderNodeOutputMaterial')
 
-    # 链接节点
+    # Link texture color to the BSDF shader base color
     material.node_tree.links.new(texture_node.outputs['Color'], bsdf_node.inputs['Base Color'])
+
+    # Link BSDF shader to the material output
     material.node_tree.links.new(bsdf_node.outputs['BSDF'], output_node.inputs['Surface'])
 
-    # 将材质分配给Cube
+    # Assign the material to the cube
     if cube.data.materials:
         cube.data.materials[0] = material
     else:

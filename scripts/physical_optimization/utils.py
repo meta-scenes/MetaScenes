@@ -1,13 +1,10 @@
 
-import os
 
 import numpy as np
 import bpy
-import json
-import os.path as osp
+
 from mathutils import Vector, Quaternion, Matrix
-import bmesh
-import math
+
 
 
 def is_point_in_polygon(point, polygon):

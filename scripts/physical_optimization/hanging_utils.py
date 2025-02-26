@@ -1,11 +1,9 @@
-import os
 
 import numpy as np
 import bpy
-import json
-import os.path as osp
+
 from mathutils import Vector, Quaternion, Matrix
-import bmesh
+
 import math
 import sys
 sys.path.append('/home/huangyue/Mycodes/MetaScenes/scripts/physical_optimization')
@@ -43,7 +41,7 @@ def refine_hanging(hanging_obj_list, layout_type):
         }
         print('Find wall ', hanging_obj, obj_ori, coli_wall)
 
-    if is_construct_layout:
+    if layout_type == 'model':
         move_to_wall(hanging_obj_with_wall)
     else:
         for hanging_obj in hanging_obj_with_wall:
@@ -52,15 +50,15 @@ def refine_hanging(hanging_obj_list, layout_type):
                 obj1=bpy.data.objects[one_wall],
                 obj2=bpy.data.objects[hanging_obj],
                 constraint_type='GENERIC',
-                use_limit_lin=(  # 使用元组传递线性限制
-                    [-0.2, 0.2],  # X轴限制
-                    [-0.2, 0.2],  # Y轴限制
-                    [0, 0]  # Z轴限制
+                use_limit_lin=(
+                    [-0.2, 0.2],
+                    [-0.2, 0.2],
+                    [0, 0]
                 ),
-                use_limit_ang=(  # 使用元组传递角度限制
-                    [0,0],  # X轴角度限制
-                    [0,0],  # Y轴角度限制
-                    None  # Z轴角度限制
+                use_limit_ang=(
+                    [0,0],
+                    [0,0],
+                    None
                 )
             )
             add_one_obj_rigid_body(bpy.data.objects[hanging_obj], 'ACTIVE')
@@ -70,73 +68,61 @@ def refine_hanging(hanging_obj_list, layout_type):
 
 
 def rotate_one_hanging_obj(obj):
-    min_volume = 100000
-    y_res = 0
-    z_res = 0
+    """
+    Finds the optimal rotation around the Y-axis for a hanging object to minimize its bounding box volume.
+
+    This function iterates through a range of rotation angles around the Y-axis, creating a temporary
+    copy of the object for each angle, applying the transformation, and computing the bounding box volume.
+    The angle that results in the smallest bounding box volume is then applied to the original object.
+
+    Parameters:
+    - obj (bpy.types.Object): The Blender object to be rotated.
+
+    Returns:
+    - None (The function directly modifies the input object's rotation).
+    """
+
+    min_volume = float('inf')  # Initialize minimum volume with a large number
+    y_res = 0  # Best rotation angle around Y-axis
 
     for y in range(-5, 5):
-        # for z in range(-3, 3):
-
+        # Create a temporary copy of the object
         new_obj = obj.copy()
         new_obj.data = obj.data.copy()
         bpy.context.collection.objects.link(new_obj)
 
+        # Apply rotation around the Y-axis
         new_obj.rotation_euler[0] = math.radians(y)
-        # new_obj.rotation_euler[1] = math.radians(z)
-
         new_obj.select_set(True)
         bpy.context.view_layer.objects.active = new_obj
         bpy.ops.object.transform_apply(location=False, rotation=True, scale=False)
-        bpy.context.view_layer.update()
 
+        # Compute the bounding box in world coordinates
         bound_box = [new_obj.matrix_world @ Vector(corner) for corner in new_obj.bound_box]
         bbox_min = [min(bound_box, key=lambda x: x[i])[i] for i in range(3)]
         bbox_max = [max(bound_box, key=lambda x: x[i])[i] for i in range(3)]
         bbox_size = [bbox_max[i] - bbox_min[i] for i in range(3)]
 
+        # Compute volume of the bounding box
         volume = bbox_size[0] * bbox_size[1] * bbox_size[2]
 
+        # Remove the temporary object
         bpy.data.objects.remove(new_obj, do_unlink=True)
 
+        # Update the best rotation angle if a smaller volume is found
         if volume < min_volume:
-            # y_res, z_res = y, z
             y_res = y
             min_volume = volume
 
+    # Apply the optimal rotation to the original object
     obj.rotation_euler[0] = math.radians(y_res)
-    # obj.rotation_euler[1] = math.radians(z_res)
-
     obj.select_set(True)
     bpy.context.view_layer.objects.active = obj
     bpy.ops.object.transform_apply(location=False, rotation=True, scale=False)
-    bpy.context.view_layer.update()
-
-    # print('optim done ', y_res, z_res)
 
 
-def hanging_init(one_scan, joint_matrix):
-    hanging_group = []
-    support_dict = joint_matrix[one_scan]['support_dict']
-    fix_dict = joint_matrix[one_scan]['fix_dict']
-    if 'planes' in joint_matrix[one_scan]['support_dict']:
-        objs_on_planes = joint_matrix[one_scan]['support_dict']['planes']
-    else:
-        objs_on_planes = []
-    for src_id in fix_dict:
-        if src_id in objs_on_planes: continue
-        if src_id not in bpy.data.objects: continue
-        rotate_one_hanging_obj(bpy.data.objects[src_id])
-        hanging_group.append(src_id)
 
-    for src_id in support_dict:
-        if src_id in objs_on_planes or src_id == 'planes': continue
-        if src_id not in bpy.data.objects: continue
-        rotate_one_hanging_obj(bpy.data.objects[src_id])
-        hanging_group.append(src_id)
-
-    return hanging_group
-
-def hanging_init_v2(one_scan, anno_info, inst_id_to_name):
+def hanging_init(one_scan, anno_info, inst_id_to_name):
     hanging_group = []
     for obj in bpy.data.objects:
         inst_id = obj.name
@@ -154,19 +140,16 @@ def hanging_init_v2(one_scan, anno_info, inst_id_to_name):
 
 
 def get_obj_orientation(obj):
-    # 获取顶点坐标
+
     mesh = obj.data
     vertices = [v.co for v in mesh.vertices]
 
-    # 提取 x 和 y 坐标
     x_coords = np.array([v.x for v in vertices])
     y_coords = np.array([v.y for v in vertices])
 
-    # 计算 x 和 y 方向上的方差
     x_variance = np.var(x_coords)
     y_variance = np.var(y_coords)
 
-    # 返回方差较小的方向及其方差
     if x_variance < y_variance:
         return 'X'
     else:
@@ -208,8 +191,8 @@ def move_to_wall(hanging_obj_with_wall):
 
 
 def check_collision(target, walls, ori, layout_type):
-    step_size = 0.1  # 移动步长
-    max_steps = 10  # 最大步数，防止无限循环
+    step_size = 0.1
+    max_steps = 10
 
     if ori == 'Y':
         init_loc = target.location.copy().y

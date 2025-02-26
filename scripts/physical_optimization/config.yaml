@@ -1,0 +1,7 @@
+ssg_path: "/mnt/fillipo/huangyue/recon_sim/11_release/SSG/"
+dataset_path: "/mnt/fillipo/huangyue/recon_sim/11_release/Annotation_scenes/"
+obj_path_root: "/mnt/fillipo/huangyue/recon_sim/11_release/SSG_simu/support/"
+inst_name_dir: "/mnt/fillipo/scratch/masaccio/existing_datasets/scannet/scan_data/instance_id_to_name/"
+scan_list:
+  - "scene0006_00"
+simulation_frames: 150
