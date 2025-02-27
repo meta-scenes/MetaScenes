@@ -97,4 +97,8 @@ if __name__ == "__main__":
     one_scan = 'scene0006_00'
     simu_matrix_info_path = f'/mnt/fillipo/huangyue/recon_sim/11_release/Physical_simu/{one_scan}.json'
     dataset_path = "/mnt/fillipo/huangyue/recon_sim/11_release/Annotation_scenes/"
+
+    # one_scan = 'Scene ID to visualize'
+    # simu_matrix_info_path = f'path/to/simulation/matrix/JSON/file.'
+    # dataset_path = "/path/to/Annotation_scenes/"
     visualize_simulation_results(simu_matrix_info_path, dataset_path)
