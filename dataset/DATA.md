@@ -1,4 +1,3 @@
-# **MetaScenes**  
 
 ## **What is MetaScenes?**  
 
@@ -18,6 +17,7 @@ After downloading and extracting the dataset, you will see the following folder,
 2. **Precomputed Transformation Matrices** – Optimized transformations for creating physically plausible scenes. You can use this [script](https://github.com/yuhuangyue/MetaScenes/blob/main/dataset/export_and_visualize_phy_scene.py) to convert an annotated scene to a physics-based scene.
 3. **Preprocessed Scene Layouts** – Scene layouts generated using both heuristic-based and model-based approaches for visualization.  
 
+We recommend using **Human-Annotated Scenes**, as physics-optimized scenes may sometimes be unstable, leading to incorrect object placements.
 
 The folder structure is as follows:
 

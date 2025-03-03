@@ -1,4 +1,4 @@
-# **MetaScenes Processing**
+# **Preprocessing for MetaScenes**
 
 MetaScenes provides a comprehensive pipeline to construct replica scenes of real-world environments.
 

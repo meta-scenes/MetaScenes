@@ -1,4 +1,3 @@
-# **Training and Inference for Scan2Sim**  
 
 ## **What is Scan2Sim?**  
 **Scan2Sim** provides a multi-modal alignment model designed to retrieve the most optimal asset candidate from a set of candidates, leveraging ground truth optimal asset selection annotations from **METASCENES**.  
