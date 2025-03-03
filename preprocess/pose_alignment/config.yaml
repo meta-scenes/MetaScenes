@@ -1,0 +1,22 @@
+# Configuration for FreePose
+freepose:
+  method: "FreePoseMethod"  # e.g., "method_name"
+  dataset_path: "process/pose_alignment/examples/scannet_example"
+  asset_path: "process/pose_alignment/examples/free_pose_mesh"
+  output_path: "process/pose_alignment/examples/pose_alignment_output"
+  inst_name_dir: "process/pose_alignment/examples/scannet_example"
+  init_pose: # !!python/ndarray
+    - [ 1, 0, 0, 0 ]
+    - [ 0, 0, -1, -2 ]
+    - [ 0, 1, 0, 0 ]
+    - [ 0, 0, 0, 1 ]
+
+
+# Configuration for AlignedPose
+alignedpose:
+  method: "AlignedPoseMethod"  # e.g., "method_name"
+  dataset_path: "process/pose_alignment/examples/scannet_example"
+  asset_path: "process/pose_alignment/examples/aligned_pose_mesh"
+  output_path: "process/pose_alignment/examples/pose_alignment_output"
+  inst_name_dir: "process/pose_alignment/examples/scannet_example"
+
