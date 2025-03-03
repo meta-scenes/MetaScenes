@@ -1,0 +1,14 @@
+ssg_save_dir: "/mnt/fillipo/huangyue/recon_sim/11_release/SSG/"
+dataset_path: "/mnt/fillipo/huangyue/recon_sim/11_release/Annotation_scenes/"
+local_opt_save_dir: "/mnt/fillipo/huangyue/recon_sim/11_release/SSG_simu/"
+global_opt_save_dir: "/mnt/fillipo/huangyue/recon_sim/11_release/Physical_simu/"
+inst_name_dir: "/mnt/fillipo/scratch/masaccio/existing_datasets/scannet/scan_data/instance_id_to_name/"
+layout_model_dir: "/mnt/fillipo/huangyue/recon_sim/11_release/Layout/RoomFormer/"
+layout_heuristic_dir: "/mnt/fillipo/huangyue/recon_sim/11_release/Layout/Heuristic/"
+anno_info_path: "/mnt/fillipo/huangyue/recon_sim/7_anno_v2/anno_info_ranking_v2.json"
+layout_type: "heuristic"
+scan_list:
+  - "scene0001_00"
+  - "scene0002_00"
+simulation_frames: 150
+

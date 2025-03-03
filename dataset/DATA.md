@@ -12,7 +12,7 @@ The **MetaScenes** dataset provides high-quality 3D scenes annotated by humans a
 
 ## **2. Data Download**  
 
-We currently host our dataset on Google Drive. To request access, please fill out [this form](https://forms.gle/AXMk7MH6bFXpCqd99).  
+We currently host our dataset on Google Drive. To request access, please fill out [this form](https://forms.gle/k94RWbdoQ1KrLZpF7).  
 
 ### **Dataset Structure**  
 

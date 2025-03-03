@@ -41,7 +41,7 @@ We propose **METASCENES**, a large-scale simulatable 3D scene dataset constructe
 
 ## News
 - [2025-03] Training & Inference code as well as preprocessing code is released!
-- [2025-03] We release the MetaScenes dataset. Fill out the [form](https://forms.gle/AXMk7MH6bFXpCqd99) for the download link!
+- [2025-03] We release the MetaScenes dataset. Fill out the [form](https://forms.gle/k94RWbdoQ1KrLZpF7) for the download link!
 - [2025-02] 🎉MetaScenes is accepted by CVPR 2025! Code and dataset will come shortly, stay tuned!
 
 ## ⚙️Installation

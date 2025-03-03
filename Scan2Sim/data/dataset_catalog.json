@@ -1,0 +1,32 @@
+{
+    "shapenet": {
+        "config": "./data/ShapeNet-55.yaml",
+        "train": "train",
+        "test": "test",
+        "usage": "train"
+    },
+    "modelnet40": {
+        "config": "./data/ModelNet40.yaml",
+        "train": "train",
+        "test": "test",
+        "usage": "test"
+    },
+    "objaverse_lvis_colored": {
+        "config": "./data/Objaverse_Lvis_Colored.yaml",
+        "train": "train",
+        "test": "test",
+        "usage": "train"
+    },
+    "ti": {
+        "config": "./data/Ti.yaml",
+        "train": "train",
+        "test": "test",
+        "usage": "test"
+    },
+    "ti_anno": {
+        "config": "./data/Ti_anno.yaml",
+        "train": "train",
+        "test": "test",
+        "usage": "train"
+    }
+}

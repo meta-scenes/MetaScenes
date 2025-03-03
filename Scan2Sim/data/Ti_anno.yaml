@@ -1,0 +1,6 @@
+NAME: Ti_anno
+DATA_PATH: /mnt/fillipo/huangyue/recon_sim/11_release/Model/data/DATA_PATH/
+PC_PATH: /mnt/fillipo/huangyue/recon_sim/11_release/Model/data/pcd_raw_data/
+IMAGE_PATH: /mnt/fillipo/huangyue/recon_sim/11_release/Model/data/IMAGE_PATH/
+NUM_CATEGORY: 0
+USE_COLOR: TRUE
