@@ -1,0 +1,25 @@
+__pycache__
+/venv
+/.idea
+
+*.swp
+# *.png
+*.so
+*.bbl
+*.blg
+*.log
+*.out
+*.aux
+*.toc
+*.brf
+*.nav
+*.snm
+*.bz2
+*.pyc
+*.swp
+*.pkl
+# *.npz
+# .json
+# *.mtl
+# *.obj
+#*.yaml
