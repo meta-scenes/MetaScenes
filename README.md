@@ -88,6 +88,13 @@ Some codes are borrowed from [ULIP2](https://github.com/salesforce/ULIP). We tha
 
 ## Citation
 
+
 ```bibtex
+@inproceedings{yu2025metascenes,
+  title={METASCENES: Towards Automated Replica Creation for Real-world 3D Scans},
+  author={Yu, Huangyue and Jia, Baoxiong and Chen, Yixin and Yang, yandan and Li, Puhao and Su, Rongpeng and Li, Jiaxin and Li, Qing and Liang, Wei and Zhu, Song-Chun and Liu, Tengyu and Huang, Siyuan},
+  booktitle=Conference on Computer Vision and Pattern Recognition(CVPR),
+  year={2025}
+}
 
 ```
