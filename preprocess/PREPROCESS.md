@@ -68,6 +68,7 @@ python preprocess/layout_estimation/heuristic_layout.py --scans scene0001_00 \
 
 ### **Output:**
 
+
 The script generates JSON files for each scan in the specified output directory. These files contain floor layout data, with each JSON file named `<scan_id>.json`:
 
 ```bash
