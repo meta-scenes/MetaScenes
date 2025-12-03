@@ -313,7 +313,7 @@ class Ti_anno(data.Dataset):
         else:
             lines = 107
 
-        self.save_path = os.path.join(self.data_root, '9_model', f'{self.subset}_{lines}_real_image_ranking.dat')
+        self.save_path = os.path.join(self.data_root, f'{self.subset}_{lines}_real_image_ranking.dat')
         assert os.path.exists(self.save_path)
 
         with open(self.save_path, 'rb') as f:

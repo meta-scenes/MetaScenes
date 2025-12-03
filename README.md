@@ -5,19 +5,19 @@
 </h2>
 
 <p align="center">
-    <a href=''>
+    <a href='https://arxiv.org/abs/2505.02388'>
       <img src='https://img.shields.io/badge/Paper-arXiv-red?style=plastic&logo=adobeacrobatreader&logoColor=red' alt='Paper arXiv'>
     </a>
-    <a href=''>
+    <a href='https://www.youtube.com/watch?v=ZRGf8oiY504'>
       <img src='https://img.shields.io/badge/Video-green?style=plastic&logo=arXiv&logoColor=green' alt='Video'>
     </a>
-    <a href=''>
+    <a href='https://meta-scenes.github.io/'>
       <img src='https://img.shields.io/badge/Project-Page-blue?style=plastic&logo=Google%20chrome&logoColor=blue' alt='Project Page'>
     </a>
 </p>
 
 <p align="center">
-    <a href="">Huangyue Yu</a>,
+    <a href="https://yuhuangyue.github.io/">Huangyue Yu</a>,
     <a href="">Baoxiong Jia</a>,
     <a href="https://yixchen.github.io/">Yixin Chen</a>,
     <a href="">Yandan Yang</a>,

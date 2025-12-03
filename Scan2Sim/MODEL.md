@@ -16,15 +16,17 @@ $ pip install -r requirements.txt
 ---
 
 ## **Pre-trained Model and Training Data Download**  
-Download the datasets and pre-trained models from [here](..).  
+Download the datasets and pre-trained models from [here](https://docs.google.com/forms/d/e/1FAIpQLSe66mSC6vlsguvtMgNHgu13VpWhCjlrG9EPmK0IaonUbQRX-w/viewform).  
 Once downloaded, update the relevant file paths accordingly:  
 
 ```bash
 # Modify the following paths in ./data/Ti_anno.yaml
 DATA_PATH: "/path/to/training/data"
-PC_PATH: "/path/to/pointcloud"
+PC_PATH: "/path/to/point/cloud"
 IMAGE_PATH: "/path/to/images"
 ```  
+
+All the files required for DATA_PATH, PC_PATH, and IMAGE_PATH can be obtained by extracting the provided `data.tar.gz` package.
 
 ---
 
