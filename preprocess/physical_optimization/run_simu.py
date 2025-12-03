@@ -426,7 +426,7 @@ def load_config(config_path):
 
 def main():
     # Load config file
-    config = load_config("/home/huangyue/Mycodes/MetaScenes/process/physical_optimization/config.yaml")
+    config = load_config("./process/physical_optimization/config.yaml")
 
     # Load parameters from config
     dataset_path = config["dataset_path"]
@@ -436,7 +436,7 @@ def main():
     layout_heuristic_dir = config["layout_heuristic_dir"]
     inst_name_dir = config["inst_name_dir"]
     global_opt_save_dir = config["global_opt_save_dir"]
-    scan_list = json.load(open('/mnt/fillipo/huangyue/recon_sim/scans_r2.json', 'rb'))#config["scan_list"]
+    scan_list = config["scan_list"]
     layout_type = config["layout_type"]
 
 
